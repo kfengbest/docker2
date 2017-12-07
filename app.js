@@ -1,15 +1,35 @@
-var http = require('http');
 
-http.createServer(function (request, response) {
+/**
+ * Module dependencies.
+ */
 
-    // 发送 HTTP 头部
-    // HTTP 状态值: 200 : OK
-    // 内容类型: text/plain
-    response.writeHead(200, {'Content-Type': 'text/plain'});
+var express = require('express')
+  , routes = require('./routes')
+  , user = require('./routes/user')
+  , http = require('http')
+  , path = require('path');
 
-    // 发送响应数据 "Hello World"
-    response.end('Hello Docker\n');
-}).listen(3000);
+var app = express();
 
-// 终端打印如下信息
-console.log('Server running at http://127.0.0.1:3000/');
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+app.get('/users', user.list);
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
