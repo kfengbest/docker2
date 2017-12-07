@@ -3,6 +3,12 @@ FROM daocloud.io/node:0.10-onbuild
 
 WORKDIR /app
 
-ADD . /app
+COPY package.json .
 
-CMD ["node","app.js"]
+RUN npm i
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
