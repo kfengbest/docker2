@@ -8,5 +8,5 @@ exports.list = function(req, res){
 };
 
 exports.books = function(req, res){
-  res.json({ name: 'js' });  
+  res.json({ name: 'js v2' });  
 };
