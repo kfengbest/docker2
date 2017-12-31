@@ -12,12 +12,12 @@ def logger = Logger.getLogger("")
 def jenkins = Jenkins.getInstance()
 
 // Admin user
-logger.info('Creating initial user {{ jenkins_admin_username }}.')
+logger.info('Creating initial user admin.')
 def hudsonRealm = new HudsonPrivateSecurityRealm(false)
-hudsonRealm.createAccount('{{ jenkins_admin_username }}','{{ jenkins_admin_password }}')
+hudsonRealm.createAccount('admin','admin')
 jenkins.setSecurityRealm(hudsonRealm)
 def strategy = new FullControlOnceLoggedInAuthorizationStrategy()
 jenkins.setAuthorizationStrategy(strategy)
 jenkins.save()
 
-
+Jenkins.instance.reload()
