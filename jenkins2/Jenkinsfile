@@ -1,0 +1,6 @@
+node{
+	git url: 'https://github.com/kfengbest/docker2.git'
+	stage "Build"
+	stage "Test"
+	stage "Deploy"
+}
