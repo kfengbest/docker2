@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Upload to S3') {
             steps {
-                withAWS(region:"us-east-1",credentials:"glb_usr_n_p") {
+                withAWS(region:"us-east-1",credentials:"global_usnp_aws_r") {
                     s3Upload(file:"artifect.zip", bucket:"cp-docker2-stg-s3-eb",path:"artifect.zip")
                 }
             }
